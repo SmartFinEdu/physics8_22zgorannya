@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 6: Згоряння палива. ККД нагрівника • Фізика 8 клас</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Roboto+Mono:wght@500;700&display=swap" rel="stylesheet">
+    
+    <!-- KaTeX для математичних та фізичних формул -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f5f9;
+            color: #0f172a;
+        }
+        .font-mono {
+            font-family: 'Roboto Mono', monospace;
+        }
+        .physics-card {
+            background: #ffffff;
+            border: 2px solid #cbd5e1;
+            box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
+        }
+        .btn-nav {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-nav:hover:not(:disabled) {
+            transform: translateY(-2px);
+        }
+        .btn-nav:active:not(:disabled) {
+            transform: translateY(0);
+        }
+        
+        /* Зручний скролінг */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #e2e8f0; 
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #94a3b8; 
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #64748b; 
+        }
+
+        /* Стилізація клітинкової сітки зошита */
+        .notebook-area {
+            background-size: 24px 24px;
+            background-image: 
+                linear-gradient(to right, #cbd5e1 1px, transparent 1px),
+                linear-gradient(to bottom, #cbd5e1 1px, transparent 1px);
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body class="min-h-screen h-screen w-screen flex flex-col justify-between p-2 md:p-4 bg-slate-100 overflow-hidden">
+
+    <!-- Верхня панель навігації -->
+    <header class="bg-white border-2 border-slate-300 rounded-2xl px-4 py-2.5 flex items-center justify-between shrink-0 shadow-sm mb-2 gap-3">
+        <div class="flex items-center gap-3">
+            <!-- Логотип атома -->
+            <div class="hidden sm:flex w-12 h-12 rounded-xl bg-slate-50 border-2 border-slate-300 items-center justify-center shrink-0">
+                <svg class="w-9 h-9 text-slate-800" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4">
+                    <circle cx="50" cy="50" r="10" fill="currentColor"/>
+                    <ellipse cx="50" cy="50" rx="42" ry="16" transform="rotate(0 50 50)"/>
+                    <ellipse cx="50" cy="50" rx="42" ry="16" transform="rotate(60 50 50)"/>
+                    <ellipse cx="50" cy="50" rx="42" ry="16" transform="rotate(120 50 50)"/>
+                </svg>
+            </div>
+            <div>
+                <h1 class="text-lg sm:text-xl md:text-2xl font-black text-slate-900 tracking-tight leading-tight">
+                    Згоряння палива. Розрахунок кількості теплоти. ККД нагрівника
+                </h1>
+                <p class="text-xs sm:text-sm md:text-base font-bold text-slate-500">
+                    Фізика 8 клас • Закон збереження енергії в механічних і теплових процесах
+                </p>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-3 shrink-0">
+            <div class="bg-amber-50 text-amber-900 font-mono font-black text-base md:text-lg px-3.5 py-2 rounded-xl border-2 border-amber-300">
+                Завдання <span id="current-task-num">1–5</span>
+            </div>
+            <div class="border-2 border-slate-800 bg-slate-50 px-3.5 py-1.5 rounded-xl flex flex-col items-center justify-center shrink-0">
+                <span class="text-xs font-black text-slate-800 uppercase tracking-wider leading-none">Урок</span>
+                <span class="text-2xl md:text-3xl font-black text-slate-900 leading-none mt-0.5">6</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Основний контейнер слайдів зі скролінгом -->
+    <main class="grow relative overflow-hidden flex flex-col justify-center">
+
+        <!-- СЛАЙД 1: Завдання 1–5 -->
+        <section id="slide-0" class="slide-page h-full flex flex-col justify-between">
+            <div class="physics-card rounded-3xl p-5 md:p-8 flex-1 flex flex-col border-slate-300 overflow-y-auto space-y-6">
+                
+                <!-- Завдання 1–3 -->
+                <div class="border-b-2 border-slate-200 pb-4 space-y-3">
+                    <div class="flex items-start gap-3 text-xl md:text-2xl font-extrabold text-slate-900">
+                        <span class="bg-slate-800 text-white w-8 h-8 rounded-lg flex items-center justify-center text-lg shrink-0 mt-0.5">1</span>
+                        <p>Налаштуйся на активну роботу на уроці.</p>
+                    </div>
+                    <div class="flex items-start gap-3 text-xl md:text-2xl font-extrabold text-slate-900">
+                        <span class="bg-slate-800 text-white w-8 h-8 rounded-lg flex items-center justify-center text-lg shrink-0 mt-0.5">2</span>
+                        <p>Попрацюй за методикою перевірки домашнього завдання.</p>
+                    </div>
+                    <div class="bg-amber-50/70 p-4 rounded-2xl border-2 border-amber-200 flex flex-col lg:flex-row items-center justify-between gap-4">
+                        <div class="space-y-2 flex-1">
+                            <div class="flex items-start gap-3 text-xl md:text-2xl font-extrabold text-slate-900">
+                                <span class="bg-amber-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-lg shrink-0 mt-0.5">3</span>
+                                <p>Дай відповіді на запитання (усно).</p>
+                            </div>
+                            <ul class="pl-11 space-y-2 text-xl md:text-2xl font-bold text-slate-800 list-disc">
+                                <li>Як у давнину люди добували вогонь? Для чого він їм був потрібен?</li>
+                                <li>Для чого використовує паливо сучасна людина?</li>
+                            </ul>
+                            <div class="pl-11 pt-1">
+                                <button onclick="toggleHint('ans_3')" class="text-base bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-xl font-bold transition shadow-sm">
+                                    <i class="fa-solid fa-fire mr-1.5"></i> Підказка до обговорення
+                                </button>
+                                <div id="ans_3" class="hidden mt-3 text-lg md:text-xl text-emerald-950 font-bold bg-emerald-100 p-4 rounded-xl border-2 border-emerald-300 space-y-1">
+                                    <p>• <strong>У давнину:</strong> вогонь добували тертям сухого дерева об дерево або висіканням іскри кременем. Він був потрібен для обігріву, приготування їжі, освітлення житла, захисту від хижаків і виплавки металів.</p>
+                                    <p>• <strong>Сьогодні:</strong> паливо використовують для опалення будинків, приготування їжі, вироблення електроенергії на ТЕС, роботи транспорту (автомобілів, літаків, ракет) та в промисловості.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Векторна ілюстрація первісної людини, що добуває вогонь -->
+                        <div class="w-40 h-40 bg-white rounded-2xl border-2 border-amber-200 p-2 flex items-center justify-center shrink-0">
+                            <svg viewBox="0 0 140 140" class="w-full h-full">
+                                <!-- Вогнище / дрова -->
+                                <line x1="35" y1="125" x2="105" y2="112" stroke="#78350f" stroke-width="6" stroke-linecap="round"/>
+                                <line x1="42" y1="110" x2="98" y2="127" stroke="#92400e" stroke-width="6" stroke-linecap="round"/>
+                                <!-- Полум'я -->
+                                <path d="M70,115 C55,105 58,88 70,75 C82,88 85,105 70,115 Z" fill="#f97316"/>
+                                <path d="M70,115 C62,108 64,97 70,90 C76,97 78,108 70,115 Z" fill="#facc15"/>
+                                <!-- Іскри -->
+                                <circle cx="58" cy="78" r="2" fill="#ea580c"/>
+                                <circle cx="82" cy="72" r="2.2" fill="#ea580c"/>
+                                <circle cx="70" cy="64" r="1.8" fill="#f59e0b"/>
+                                <!-- Паличка для тертя -->
+                                <line x1="70" y1="112" x2="52" y2="55" stroke="#b45309" stroke-width="4" stroke-linecap="round"/>
+                                <!-- Постать людини -->
+                                <circle cx="44" cy="36" r="11" fill="#d97706"/>
+                                <path d="M35,32 Q44,20 54,32" stroke="#451a03" stroke-width="5" fill="none" stroke-linecap="round"/>
+                                <path d="M40,48 L32,88 L56,95" stroke="#d97706" stroke-width="11" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M44,54 L63,80" stroke="#d97706" stroke-width="7" fill="none" stroke-linecap="round"/>
+                                <path d="M27,76 L46,84 L38,100 L22,92 Z" fill="#78350f"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Завдання 4: Інтерактивна таблиця видів палива -->
+                <div class="bg-slate-50 p-5 rounded-2xl border-2 border-slate-200 space-y-4">
+                    <h2 class="text-xl md:text-2xl font-black text-slate-900">
+                        4. Запиши подані назви видів палива до відповідних рядків таблиці.
+                    </h2>
+                    <p class="text-lg md:text-xl font-bold text-slate-700 bg-white p-3.5 rounded-xl border border-slate-300">
+                        Натискай на вид палива, щоб розподілити його в таблицю:
+                    </p>
+
+                    <!-- Кнопки-картки видів палива -->
+                    <div id="fuel-bank" class="flex flex-wrap gap-2.5">
+                        <button onclick="classifyFuel(this, 'natural')" class="fuel-chip px-3.5 py-2 rounded-xl bg-white border-2 border-slate-300 hover:border-blue-500 text-lg md:text-xl font-bold text-slate-800 shadow-sm transition">Кам’яне вугілля</button>
+                        <button onclick="classifyFuel(this, 'artificial')" class="fuel-chip px-3.5 py-2 rounded-xl bg-white border-2 border-slate-300 hover:border-blue-500 text-lg md:text-xl font-bold text-slate-800 shadow-sm transition">Бензин</button>
+                        <button onclick="classifyFuel(this, 'artificial')" class="fuel-chip px-3.5 py-2 rounded-xl bg-white border-2 border-slate-300 hover:border-blue-500 text-lg md:text-xl font-bold text-slate-800 shadow-sm transition">Порох</button>
+                        <button onclick="classifyFuel(this, 'natural')" class="fuel-chip px-3.5 py-2 rounded-xl bg-white border-2 border-slate-300 hover:border-blue-500 text-lg md:text-xl font-bold text-slate-800 shadow-sm transition">Торф</button>
+                        <button onclick="classifyFuel(this, 'natural')" class="fuel-chip px-3.5 py-2 rounded-xl bg-white border-2 border-slate-300 hover:border-blue-500 text-lg md:text-xl font-bold text-slate-800 shadow-sm transition">Нафта</button>
+                        <button onclick="classifyFuel(this, 'natural')" class="fuel-chip px-3.5 py-2 rounded-xl bg-white border-2 border-slate-300 hover:border-blue-500 text-lg md:text-xl font-bold text-slate-800 shadow-sm transition">Сланець</button>
+                        <button onclick="classifyFuel(this, 'natural')" class="fuel-chip px-3.5 py-2 rounded-xl bg-white border-2 border-slate-300 hover:border-blue-500 text-lg md:text-xl font-bold text-slate-800 shadow-sm transition">Природний газ</button>
+                        <button onclick="classifyFuel(this, 'artificial')" class="fuel-chip px-3.5 py-2 rounded-xl bg-white border-2 border-slate-300 hover:border-blue-500 text-lg md:text-xl font-bold text-slate-800 shadow-sm transition">Гас</button>
+                        <button onclick="classifyFuel(this, 'natural')" class="fuel-chip px-3.5 py-2 rounded-xl bg-white border-2 border-slate-300 hover:border-blue-500 text-lg md:text-xl font-bold text-slate-800 shadow-sm transition">Дрова</button>
+                        <button onclick="classifyFuel(this, 'artificial')" class="fuel-chip px-3.5 py-2 rounded-xl bg-white border-2 border-slate-300 hover:border-blue-500 text-lg md:text-xl font-bold text-slate-800 shadow-sm transition">Пропан</button>
+                        <button onclick="classifyFuel(this, 'artificial')" class="fuel-chip px-3.5 py-2 rounded-xl bg-white border-2 border-slate-300 hover:border-blue-500 text-lg md:text-xl font-bold text-slate-800 shadow-sm transition">Бутан</button>
+                        <button onclick="classifyFuel(this, 'artificial')" class="fuel-chip px-3.5 py-2 rounded-xl bg-white border-2 border-slate-300 hover:border-blue-500 text-lg md:text-xl font-bold text-slate-800 shadow-sm transition">Етиловий спирт</button>
+                        <button onclick="classifyFuel(this, 'artificial')" class="fuel-chip px-3.5 py-2 rounded-xl bg-white border-2 border-slate-300 hover:border-blue-500 text-lg md:text-xl font-bold text-slate-800 shadow-sm transition">Дизельне пальне</button>
+                    </div>
+
+                    <!-- Таблиця як у зошиті -->
+                    <div class="overflow-hidden rounded-2xl border-2 border-slate-400 bg-white">
+                        <table class="w-full border-collapse text-left">
+                            <tbody>
+                                <tr class="border-b-2 border-slate-400">
+                                    <th class="w-1/3 md:w-1/4 p-4 bg-emerald-50 border-r-2 border-slate-400 text-lg md:text-xl font-black text-slate-900">
+                                        Природне паливо
+                                    </th>
+                                    <td id="cell-natural" class="p-4 min-h-[72px] text-lg md:text-xl font-bold text-emerald-900">
+                                        <span class="text-slate-400 italic font-normal text-base">Натисни на назви природного палива вище...</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="w-1/3 md:w-1/4 p-4 bg-blue-50 border-r-2 border-slate-400 text-lg md:text-xl font-black text-slate-900">
+                                        Паливо, виготовлене людиною
+                                    </th>
+                                    <td id="cell-artificial" class="p-4 min-h-[72px] text-lg md:text-xl font-bold text-blue-900">
+                                        <span class="text-slate-400 italic font-normal text-base">Натисни на назви штучного палива вище...</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="flex flex-wrap gap-3">
+                        <button onclick="autoFillFuelTable()" class="text-base bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-xl font-bold transition shadow-sm">
+                            <i class="fa-solid fa-check-double mr-1.5"></i> Заповнити всю таблицю
+                        </button>
+                        <button onclick="resetFuelTable()" class="text-base bg-slate-200 hover:bg-slate-300 text-slate-800 px-4 py-2 rounded-xl font-bold transition">
+                            <i class="fa-solid fa-rotate-left mr-1.5"></i> Очистити
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Завдання 5: Дослід зі свічками під скляними ковпаками -->
+                <div class="bg-slate-50 p-5 rounded-2xl border-2 border-slate-200 space-y-4">
+                    <h2 class="text-xl md:text-2xl font-black text-slate-900">
+                        5. Пригадай, за яких умов відбувається процес горіння. Для цього переглянь дослід, що показує вчитель / учителька.
+                    </h2>
+
+                    <!-- Векторна ілюстрація свічок під ковпаками 1 і 2 -->
+                    <div class="bg-white border-2 border-slate-300 rounded-2xl p-4 flex justify-center">
+                        <svg viewBox="0 0 420 195" class="w-full max-w-[400px] h-auto">
+                            <!-- Ковпак 1: свічка горить -->
+                            <g transform="translate(20, 10)">
+                                <!-- Основа -->
+                                <ellipse cx="80" cy="145" rx="68" ry="12" fill="#e2e8f0" stroke="#475569" stroke-width="2"/>
+                                <!-- Свічка -->
+                                <rect x="66" y="88" width="28" height="55" rx="3" fill="#f8fafc" stroke="#64748b" stroke-width="1.8"/>
+                                <!-- Гніт і полум'я -->
+                                <line x1="80" y1="88" x2="80" y2="80" stroke="#1e293b" stroke-width="2"/>
+                                <path d="M80,80 C71,72 73,58 80,48 C87,58 89,72 80,80 Z" fill="#f97316"/>
+                                <path d="M80,78 C75,73 76,65 80,59 C84,65 85,73 80,78 Z" fill="#fef08a"/>
+                                <!-- Скляний ковпак -->
+                                <path d="M22,143 L22,68 A58,58 0 0,1 138,68 L138,143" fill="rgba(186,230,253,0.18)" stroke="#334155" stroke-width="2.2"/>
+                                <circle cx="80" cy="8" r="6" fill="none" stroke="#334155" stroke-width="2"/>
+                                <text x="80" y="178" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold">1</text>
+                            </g>
+
+                            <!-- Ковпак 2: свічка згасла (кисень витратився) -->
+                            <g transform="translate(220, 10)">
+                                <!-- Основа -->
+                                <ellipse cx="80" cy="145" rx="68" ry="12" fill="#e2e8f0" stroke="#475569" stroke-width="2"/>
+                                <!-- Свічка -->
+                                <rect x="66" y="88" width="28" height="55" rx="3" fill="#f8fafc" stroke="#64748b" stroke-width="1.8"/>
+                                <!-- Згаслий гніт і цівка диму -->
+                                <line x1="80" y1="88" x2="80" y2="80" stroke="#1e293b" stroke-width="2"/>
+                                <path d="M80,78 Q74,66 83,56 Q90,46 78,36" fill="none" stroke="#94a3b8" stroke-width="2" stroke-dasharray="3 2"/>
+                                <!-- Скляний ковпак -->
+                                <path d="M22,143 L22,68 A58,58 0 0,1 138,68 L138,143" fill="rgba(148,163,184,0.22)" stroke="#334155" stroke-width="2.2"/>
+                                <circle cx="80" cy="8" r="6" fill="none" stroke="#334155" stroke-width="2"/>
+                                <text x="80" y="178" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold">2</text>
+                            </g>
+                        </svg>
+                    </div>
+
+                    <p class="text-xl md:text-2xl font-bold text-slate-900">➤ Сформулюй висновок.</p>
+                    <textarea rows="2" placeholder="Запиши висновок про умови горіння..." class="notebook-area w-full p-3 rounded-xl border-2 border-slate-300 text-lg md:text-xl font-bold text-slate-800 focus:outline-none focus:border-blue-500"></textarea>
+
+                    <button onclick="toggleHint('ans_5')" class="text-base bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl font-bold transition">
+                        <i class="fa-solid fa-eye mr-1.5"></i> Перевірити висновок
+                    </button>
+                    <p id="ans_5" class="hidden text-lg md:text-xl text-emerald-950 font-bold bg-emerald-100 p-4 rounded-xl border-2 border-emerald-300">
+                        <strong>Висновок:</strong> Для підтримання процесу горіння необхідний безперервний доступ кисню (повітря) та нагрівання палива до температури займання. Коли кисень під закритим скляним ковпаком витрачається, свічка гасне.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- СЛАЙД 2: Завдання 6–8 -->
+        <section id="slide-1" class="slide-page hidden h-full flex flex-col justify-between">
+            <div class="physics-card rounded-3xl p-5 md:p-8 flex-1 flex flex-col border-slate-300 overflow-y-auto space-y-6">
+                
+                <!-- Завдання 6 -->
+                <div class="bg-slate-50 p-5 rounded-2xl border-2 border-slate-200 space-y-3">
+                    <h2 class="text-xl md:text-2xl font-black text-slate-900">
+                        6. Поміркуй, які хімічні реакції відбуваються під час згоряння палива.
+                    </h2>
+                    <textarea rows="2" placeholder="Запиши міркування..." class="notebook-area w-full p-3 rounded-xl border-2 border-slate-300 text-lg md:text-xl font-bold text-slate-800 focus:outline-none focus:border-blue-500"></textarea>
+                    <button onclick="toggleHint('ans_6')" class="text-base bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl font-bold transition">Перевірити відповідь</button>
+                    <p id="ans_6" class="hidden text-lg md:text-xl text-emerald-950 font-bold bg-emerald-100 p-4 rounded-xl border-2 border-emerald-300">
+                        Під час згоряння палива відбуваються <strong>екзотермічні реакції окиснення</strong>: атоми Карбону ($\text{C}$) та Гідрогену ($\text{H}$), що входять до складу палива, сполучаються з атомами Оксигену ($\text{O}_2$) повітря. У результаті утворюються вуглекислий газ ($\text{CO}_2$) та водяна пара ($\text{H}_2\text{O}$) і виділяється теплота.
+                    </p>
+                </div>
+
+                <!-- Завдання 7: Реакція метану з киснем (моделі молекул) -->
+                <div class="bg-slate-50 p-5 rounded-2xl border-2 border-slate-200 space-y-4">
+                    <h2 class="text-xl md:text-2xl font-black text-slate-900">
+                        7. Послуговуючись рисунком, запиши реакцію взаємодії метану (основного складника природного газу) з киснем, за якої виділяється теплота.
+                    </h2>
+
+                    <!-- Векторний рисунок моделей молекул CH4 + 2O2 -> CO2 + 2H2O -->
+                    <div class="bg-white border-2 border-slate-300 rounded-2xl p-4 flex justify-center overflow-x-auto">
+                        <svg viewBox="0 0 740 165" class="w-full max-w-[720px] h-auto">
+                            <defs>
+                                <marker id="chem-arrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                                    <path d="M 0 1 L 10 5 L 0 9 z" fill="#0f172a"/>
+                                </marker>
+                            </defs>
+                            <!-- CH4 -->
+                            <g transform="translate(85, 75)">
+                                <circle cx="0" cy="-26" r="14" fill="#0ea5e9" stroke="#0369a1" stroke-width="1.5"/>
+                                <circle cx="0" cy="26" r="14" fill="#0ea5e9" stroke="#0369a1" stroke-width="1.5"/>
+                                <circle cx="-26" cy="0" r="14" fill="#0ea5e9" stroke="#0369a1" stroke-width="1.5"/>
+                                <circle cx="26" cy="0" r="14" fill="#0ea5e9" stroke="#0369a1" stroke-width="1.5"/>
+                                <circle cx="0" cy="0" r="22" fill="#84cc16" stroke="#4d7c0f" stroke-width="1.5"/>
+                                <text x="0" y="65" text-anchor="middle" font-family="serif" font-size="20" font-weight="bold">CH<tspan dy="4" font-size="14">4</tspan></text>
+                            </g>
+
+                            <text x="165" y="82" font-family="serif" font-size="26" font-weight="bold">+</text>
+
+                            <!-- 2 O2 -->
+                            <g transform="translate(245, 42)">
+                                <circle cx="-11" cy="-9" r="17" fill="#ef4444" stroke="#b91c1c" stroke-width="1.5"/>
+                                <circle cx="11" cy="9" r="17" fill="#ef4444" stroke="#b91c1c" stroke-width="1.5"/>
+                                <text x="-38" y="-12" font-family="serif" font-size="19" font-weight="bold">O<tspan dy="4" font-size="13">2</tspan></text>
+                            </g>
+                            <g transform="translate(275, 112)">
+                                <circle cx="-11" cy="-9" r="17" fill="#ef4444" stroke="#b91c1c" stroke-width="1.5"/>
+                                <circle cx="11" cy="9" r="17" fill="#ef4444" stroke="#b91c1c" stroke-width="1.5"/>
+                                <text x="-35" y="34" font-family="serif" font-size="19" font-weight="bold">O<tspan dy="4" font-size="13">2</tspan></text>
+                            </g>
+
+                            <!-- Стрілка реакції -->
+                            <line x1="330" y1="75" x2="395" y2="75" stroke="#0f172a" stroke-width="2.5" marker-end="url(#chem-arrow)"/>
+
+                            <!-- CO2 -->
+                            <g transform="translate(465, 75)">
+                                <circle cx="-24" cy="0" r="17" fill="#ef4444" stroke="#b91c1c" stroke-width="1.5"/>
+                                <circle cx="24" cy="0" r="17" fill="#ef4444" stroke="#b91c1c" stroke-width="1.5"/>
+                                <circle cx="0" cy="0" r="22" fill="#84cc16" stroke="#4d7c0f" stroke-width="1.5"/>
+                                <text x="0" y="55" text-anchor="middle" font-family="serif" font-size="20" font-weight="bold">CO<tspan dy="4" font-size="14">2</tspan></text>
+                            </g>
+
+                            <text x="535" y="82" font-family="serif" font-size="26" font-weight="bold">+</text>
+
+                            <!-- 2 H2O -->
+                            <g transform="translate(615, 42)">
+                                <circle cx="-19" cy="10" r="13" fill="#0ea5e9" stroke="#0369a1" stroke-width="1.5"/>
+                                <circle cx="0" cy="-19" r="13" fill="#0ea5e9" stroke="#0369a1" stroke-width="1.5"/>
+                                <circle cx="0" cy="0" r="17" fill="#ef4444" stroke="#b91c1c" stroke-width="1.5"/>
+                                <text x="-48" y="-12" font-family="serif" font-size="19" font-weight="bold">H<tspan dy="4" font-size="13">2</tspan><tspan dy="-4">O</tspan></text>
+                            </g>
+                            <g transform="translate(645, 112)">
+                                <circle cx="-19" cy="10" r="13" fill="#0ea5e9" stroke="#0369a1" stroke-width="1.5"/>
+                                <circle cx="19" cy="-10" r="13" fill="#0ea5e9" stroke="#0369a1" stroke-width="1.5"/>
+                                <circle cx="0" cy="0" r="17" fill="#ef4444" stroke="#b91c1c" stroke-width="1.5"/>
+                                <text x="0" y="42" text-anchor="middle" font-family="serif" font-size="19" font-weight="bold">H<tspan dy="4" font-size="13">2</tspan><tspan dy="-4">O</tspan></text>
+                            </g>
+                        </svg>
+                    </div>
+
+                    <div class="space-y-3">
+                        <input type="text" placeholder="Запиши рівняння реакції, наприклад: CH4 + 2O2 -> CO2 + 2H2O + Q" class="notebook-area w-full p-3 rounded-xl border-2 border-slate-300 text-lg md:text-xl font-mono font-bold text-slate-800 focus:outline-none focus:border-blue-500">
+                        
+                        <p class="text-xl md:text-2xl font-bold text-slate-900">➤ Сформулюй визначення процесу горіння палива, беручи за основу записану реакцію.</p>
+                        <textarea rows="2" placeholder="Запиши визначення..." class="notebook-area w-full p-3 rounded-xl border-2 border-slate-300 text-lg md:text-xl font-bold text-slate-800 focus:outline-none focus:border-blue-500"></textarea>
+
+                        <p class="text-xl md:text-2xl font-bold text-slate-900">➤ Послуговуючись додатковими джерелами інформації, знайди інше визначення процесу горіння та проаналізуй його.</p>
+                        <textarea rows="2" placeholder="Запиши та проаналізуй..." class="notebook-area w-full p-3 rounded-xl border-2 border-slate-300 text-lg md:text-xl font-bold text-slate-800 focus:outline-none focus:border-blue-500"></textarea>
+
+                        <button onclick="toggleHint('ans_7')" class="text-base bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl font-bold transition">Перевірити відповіді до завдання 7</button>
+                        <div id="ans_7" class="hidden text-lg md:text-xl text-emerald-950 font-bold bg-emerald-100 p-4 rounded-xl border-2 border-emerald-300 space-y-2">
+                            <p>• <strong>Рівняння реакції:</strong> $\text{CH}_4 + 2\text{O}_2 \rightarrow \text{CO}_2 + 2\text{H}_2\text{O} + Q$.</p>
+                            <p>• <strong>Визначення на основі реакції:</strong> Горіння палива — це хімічна реакція окиснення палива (сполучення з киснем), яка супроводжується виділенням великої кількості теплоти та світла.</p>
+                            <p>• <strong>Додаткове визначення (з хімії / енциклопедії):</strong> Горіння — це швидкоплинний фізико-хімічний процес окиснення речовини, що супроводжується інтенсивним виділенням теплової енергії та випромінюванням світла (полум’ям або світінням).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Блок "Зверни увагу!" та Завдання 8 -->
+                <div class="bg-amber-50 p-5 rounded-2xl border-2 border-amber-300 space-y-4">
+                    <p class="text-lg md:text-xl font-bold text-slate-900 leading-relaxed">
+                        <strong class="text-amber-900 font-black">Зверни увагу!</strong> Щоб розпочався процес горіння, необхідне джерело займання, тобто паливо потрібно нагріти до певної температури. Для різних видів палива температура займання неоднакова. Теплота, що виділяється під час горіння, підтримує температуру речовини вищою за температуру займання, унаслідок чого горіння підтримується самостійно. Наприклад, температура горіння сірника становить $1\,500\ ^\circ\text{C}$. Температура займання дров — $180\text{–}200\ ^\circ\text{C}$, а температура їх горіння — від $800$ до $1\,000\ ^\circ\text{C}$.
+                    </p>
+
+                    <h2 class="text-xl md:text-2xl font-black text-slate-900 pt-1">
+                        8. Прочитай і запам’ятай інформацію.
+                    </h2>
+                    <div class="bg-white p-5 rounded-2xl border-2 border-slate-400 flex flex-col lg:flex-row items-center gap-5">
+                        <div class="space-y-2 text-lg md:text-xl font-bold text-slate-900 leading-relaxed flex-1">
+                            <p>Під час неповного згоряння палива (наприклад, природного газу) виділяється оксид вуглецю (чадний газ):</p>
+                            <p class="text-center font-mono text-xl md:text-2xl font-black text-rose-700 py-1">$2\text{C} + \text{O}_2 \rightarrow 2\text{CO}.$</p>
+                            <p>Чадний газ краще, ніж кисень, сполучається з гемоглобіном крові, тому в разі отруєння ним виникає кисневе голодування, що може призвести до виникнення головного болю, мерехтіння перед очима, задишки, прискореного серцебиття, почервоніння обличчя, непритомності й навіть смерті (у разі концентрації чадного газу в повітрі понад $0{,}1\ \%$).</p>
+                            <p>Чадний газ може накопичуватися, якщо плиту вмикають на кухні з поганою вентиляцією. Тому димові та вентиляційні канали необхідно періодично перевіряти.</p>
+                        </div>
+                        <!-- Векторна ілюстрація газової конфорки -->
+                        <div class="w-48 h-44 bg-slate-900 rounded-2xl border-2 border-slate-700 p-3 flex items-center justify-center shrink-0">
+                            <svg viewBox="0 0 160 140" class="w-full h-full">
+                                <!-- Решітка плити -->
+                                <path d="M15,45 L55,58 M145,45 L105,58 M25,115 L60,88 M135,115 L100,88" stroke="#64748b" stroke-width="6" stroke-linecap="round"/>
+                                <!-- Кільце конфорки -->
+                                <ellipse cx="80" cy="75" rx="36" ry="22" fill="#334155" stroke="#94a3b8" stroke-width="2"/>
+                                <ellipse cx="80" cy="72" rx="28" ry="16" fill="#1e293b"/>
+                                <!-- Язички синього газу -->
+                                <g fill="#38bdf8" stroke="#0284c7" stroke-width="0.8">
+                                    <path d="M44,72 Q35,62 48,64 Z"/>
+                                    <path d="M52,60 Q46,48 58,54 Z"/>
+                                    <path d="M68,55 Q66,42 75,52 Z"/>
+                                    <path d="M88,55 Q92,42 96,54 Z"/>
+                                    <path d="M106,60 Q116,49 112,63 Z"/>
+                                    <path d="M116,72 Q126,65 114,76 Z"/>
+                                    <path d="M108,86 Q116,96 102,90 Z"/>
+                                    <path d="M80,93 Q80,105 74,93 Z"/>
+                                    <path d="M54,87 Q44,96 58,90 Z"/>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- СЛАЙД 3: Завдання 9–12 -->
+        <section id="slide-2" class="slide-page hidden h-full flex flex-col justify-between">
+            <div class="physics-card rounded-3xl p-5 md:p-8 flex-1 flex flex-col border-slate-300 overflow-y-auto space-y-6">
+                
+                <!-- Завдання 9 -->
+                <div class="bg-slate-50 p-5 rounded-2xl border-2 border-slate-200 space-y-4">
+                    <h2 class="text-xl md:text-2xl font-black text-slate-900">
+                        9. Дай відповіді на запитання.
+                    </h2>
+                    <div class="space-y-3">
+                        <p class="text-xl md:text-2xl font-bold text-slate-900">• Яку першу допомогу слід надати людині, що отруїлася чадним газом?</p>
+                        <textarea rows="2" placeholder="Запиши порядок дій..." class="notebook-area w-full p-3 rounded-xl border-2 border-slate-300 text-lg md:text-xl font-bold text-slate-800 focus:outline-none focus:border-blue-500"></textarea>
+
+                        <div class="flex flex-wrap items-center gap-3 text-xl md:text-2xl font-bold text-slate-900">
+                            <span>• За яким номером телефону викликають аварійну газову службу?</span>
+                            <input type="text" placeholder="Номер..." class="w-32 px-3 py-1.5 rounded-xl border-2 border-slate-400 bg-white font-mono font-black text-center text-rose-700 focus:outline-none focus:border-blue-500">
+                        </div>
+
+                        <p class="text-xl md:text-2xl font-bold text-slate-900">• Чому багаття гасять водою?</p>
+                        <div class="flex flex-col sm:flex-row gap-4 items-center">
+                            <!-- Векторне зображення багаття -->
+                            <div class="w-40 h-32 bg-slate-900 rounded-2xl border-2 border-slate-700 p-2 flex items-center justify-center shrink-0">
+                                <svg viewBox="0 0 140 110" class="w-full h-full">
+                                    <line x1="25" y1="95" x2="115" y2="82" stroke="#78350f" stroke-width="7" stroke-linecap="round"/>
+                                    <line x1="32" y1="80" x2="108" y2="96" stroke="#92400e" stroke-width="7" stroke-linecap="round"/>
+                                    <path d="M70,86 C45,74 50,48 70,22 C90,48 95,74 70,86 Z" fill="#f97316"/>
+                                    <path d="M70,86 C56,77 59,58 70,40 C81,58 84,77 70,86 Z" fill="#facc15"/>
+                                    <circle cx="52" cy="34" r="2" fill="#fb923c"/>
+                                    <circle cx="88" cy="28" r="2.2" fill="#fb923c"/>
+                                </svg>
+                            </div>
+                            <textarea rows="3" placeholder="Запиши фізичне пояснення..." class="notebook-area w-full p-3 rounded-xl border-2 border-slate-300 text-lg md:text-xl font-bold text-slate-800 focus:outline-none focus:border-blue-500"></textarea>
+                        </div>
+
+                        <button onclick="toggleHint('ans_9')" class="text-base bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl font-bold transition">Перевірити відповіді до завдання 9</button>
+                        <div id="ans_9" class="hidden text-lg md:text-xl text-emerald-950 font-bold bg-emerald-100 p-4 rounded-xl border-2 border-emerald-300 space-y-1.5">
+                            <p>1. <strong>Перша допомога:</strong> негайно винести або вивести потерпілого на свіже повітря, звільнити від тісного одягу (розстебнути комір), забезпечити спокій і тепло, викликати швидку допомогу (<span class="font-mono font-black">103</span>). У разі зупинки дихання — розпочати штучне дихання.</p>
+                            <p>2. <strong>Аварійна газова служба:</strong> <span class="font-mono font-black text-rose-700 text-2xl">104</span> (або єдиний номер екстрених служб <span class="font-mono font-black">112</span>).</p>
+                            <p>3. <strong>Чому багаття гасять водою:</strong> вода нагрівається і випаровується, забираючи у дров велику кількість теплоти та охолоджуючи їх нижче температури займання ($180\text{–}200\ ^\circ\text{C}$), а водяна пара перекриває доступ кисню до палива.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Завдання 10: Формула кількості теплоти згоряння палива -->
+                <div class="bg-slate-50 p-5 rounded-2xl border-2 border-slate-200 space-y-4">
+                    <h2 class="text-xl md:text-2xl font-black text-slate-900">
+                        10. Переглянь відеофрагмент і запиши формулу розрахунку кількості теплоти, що виділяється під час повного згоряння палива (у разі потреби скористайся текстом на с. 51):
+                    </h2>
+                    <div class="bg-white p-5 rounded-2xl border-2 border-slate-300 space-y-3 text-lg md:text-xl font-bold text-slate-900">
+                        <div class="flex items-center justify-center gap-2 text-2xl md:text-3xl font-black">
+                            <span>$Q =$</span>
+                            <input type="text" placeholder="q · m" class="w-36 px-3 py-1 rounded-xl border-b-2 border-slate-800 bg-slate-50 text-center font-mono focus:outline-none focus:border-blue-600">
+                            <span>,</span>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-12 gap-2 items-center">
+                            <span class="md:col-span-2 font-mono">де $Q$ —</span>
+                            <input type="text" placeholder="кількість теплоти, що виділяється під час повного згоряння палива" class="md:col-span-7 px-3 py-1.5 rounded-lg border-b-2 border-slate-400 bg-slate-50 focus:outline-none">
+                            <span class="md:col-span-3 font-mono">, $[Q] =$ <input type="text" placeholder="Дж" class="w-20 px-2 py-1 rounded border-b-2 border-slate-400 bg-slate-50 text-center"></span>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-12 gap-2 items-center">
+                            <span class="md:col-span-2 font-mono pl-6">$m$ —</span>
+                            <input type="text" placeholder="маса палива" class="md:col-span-7 px-3 py-1.5 rounded-lg border-b-2 border-slate-400 bg-slate-50 focus:outline-none">
+                            <span class="md:col-span-3 font-mono">, $[m] =$ <input type="text" placeholder="кг" class="w-20 px-2 py-1 rounded border-b-2 border-slate-400 bg-slate-50 text-center"></span>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-12 gap-2 items-center">
+                            <span class="md:col-span-2 font-mono pl-6">$q$ —</span>
+                            <input type="text" placeholder="питома теплота згоряння палива" class="md:col-span-7 px-3 py-1.5 rounded-lg border-b-2 border-slate-400 bg-slate-50 focus:outline-none">
+                            <span class="md:col-span-3 font-mono">, $[q] =$ <input type="text" placeholder="Дж/кг" class="w-24 px-2 py-1 rounded border-b-2 border-slate-400 bg-slate-50 text-center"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Завдання 11: Опорний конспект "Запам'ятовую ефективно" -->
+                <div class="space-y-3">
+                    <h2 class="text-xl md:text-2xl font-black text-slate-900">
+                        11. Вивчи інформацію за методикою «Запам’ятовую ефективно».
+                    </h2>
+                    <div class="bg-blue-50/70 p-5 md:p-6 rounded-2xl border-2 border-slate-700 text-lg md:text-xl font-bold text-slate-900 space-y-3 leading-relaxed">
+                        <p><strong>1. Питома теплота згоряння палива</strong> — це фізична величина, яка характеризує певне паливо та чисельно дорівнює кількості теплоти, що виділяється під час повного згоряння $1\ \text{кг}$ палива.</p>
+                        <p><strong>2.</strong> Її позначають $q$ та в СІ вимірюють у $\frac{\text{Дж}}{\text{кг}}$. &nbsp;&nbsp; <strong>У СІ:</strong> $[q] = \frac{\text{Дж}}{\text{кг}}$.</p>
+                        <p><strong>3.</strong> Щоб обчислити кількість теплоти, яка виділяється під час повного згоряння палива, потрібно масу палива помножити на питому теплоту згоряння палива:
+                            <span class="block text-center text-2xl font-black text-blue-900 py-1">$$Q = qm$$</span>
+                        </p>
+                        <p><strong>4. Коефіцієнт корисної дії (ККД) нагрівника</strong> — це фізична величина, що характеризує ефективність нагрівника й дорівнює відношенню корисно спожитої теплоти до всієї теплоти, яка може бути виділена під час повного згоряння палива:
+                            <span class="block text-center text-2xl font-black text-blue-900 py-1">$$\eta = \frac{Q_{\text{кор}}}{Q_{\text{повна}}} \cdot 100\ \%$$</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Завдання 12: Формула ККД нагрівника -->
+                <div class="bg-slate-50 p-5 rounded-2xl border-2 border-slate-200 space-y-4">
+                    <h2 class="text-xl md:text-2xl font-black text-slate-900">
+                        12. Переглянь відеофрагмент та запиши формулу розрахунку коефіцієнта корисної дії нагрівника (у разі потреби скористайся текстом на с. 52):
+                    </h2>
+                    <div class="bg-white p-5 rounded-2xl border-2 border-slate-300 space-y-3 text-lg md:text-xl font-bold text-slate-900">
+                        <div class="flex items-center justify-center gap-2 text-2xl md:text-3xl font-black">
+                            <span>$\eta =$</span>
+                            <input type="text" placeholder="(Qкор / Qповна) · 100%" class="w-60 px-3 py-1 rounded-xl border-b-2 border-slate-800 bg-slate-50 text-center font-mono focus:outline-none focus:border-blue-600">
+                            <span>,</span>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-12 gap-2 items-center">
+                            <span class="md:col-span-2 font-mono">де $Q_{\text{кор}}$ —</span>
+                            <input type="text" placeholder="корисно спожита кількість теплоти" class="md:col-span-7 px-3 py-1.5 rounded-lg border-b-2 border-slate-400 bg-slate-50 focus:outline-none">
+                            <span class="md:col-span-3 font-mono">, $[Q_{\text{кор}}] =$ <input type="text" placeholder="Дж" class="w-20 px-2 py-1 rounded border-b-2 border-slate-400 bg-slate-50 text-center"></span>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-12 gap-2 items-center">
+                            <span class="md:col-span-2 font-mono pl-4">$Q_{\text{повна}}$ —</span>
+                            <input type="text" placeholder="повна кількість теплоти, що виділяється при згорянні палива" class="md:col-span-7 px-3 py-1.5 rounded-lg border-b-2 border-slate-400 bg-slate-50 focus:outline-none">
+                            <span class="md:col-span-3 font-mono">, $[Q_{\text{повна}}] =$ <input type="text" placeholder="Дж" class="w-20 px-2 py-1 rounded border-b-2 border-slate-400 bg-slate-50 text-center"></span>
+                        </div>
+                    </div>
+
+                    <p class="text-xl md:text-2xl font-bold text-slate-900">➤ Поміркуй, чому ККД нагрівника досить малий.</p>
+                    <button onclick="toggleHint('ans_12')" class="text-base bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl font-bold transition">Перевірити пояснення</button>
+                    <p id="ans_12" class="hidden text-lg md:text-xl text-emerald-950 font-bold bg-emerald-100 p-4 rounded-xl border-2 border-emerald-300">
+                        ККД нагрівника досить малий (зазвичай $15\text{–}60\%$), оскільки значна частина теплоти, що виділяється під час згоряння палива, витрачається марно: на нагрівання навколишнього повітря, стінок самого нагрівника, посудини (чайника, каструлі), вилітає з продуктами згоряння (димом) у димохід, а також паливо згоряє не повністю.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- СЛАЙД 4: Завдання 13–14 -->
+        <section id="slide-3" class="slide-page hidden h-full flex flex-col justify-between">
+            <div class="physics-card rounded-3xl p-5 md:p-8 flex-1 flex flex-col border-slate-300 overflow-y-auto space-y-6">
+                
+                <!-- Завдання 13 -->
+                <div class="bg-slate-50 p-5 rounded-2xl border-2 border-slate-200 space-y-3">
+                    <h2 class="text-xl md:text-2xl font-black text-slate-900">
+                        13. Поясни значення питомої теплоти згоряння сухих дров. Скористайся таблицею питомої теплоти згоряння деяких видів палива (див. с. 56).
+                    </h2>
+                    <textarea rows="2" placeholder="Запиши пояснення..." class="notebook-area w-full p-3 rounded-xl border-2 border-slate-300 text-lg md:text-xl font-bold text-slate-800 focus:outline-none focus:border-blue-500"></textarea>
+                    <button onclick="toggleHint('ans_13')" class="text-base bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl font-bold transition">Перевірити за таблицею</button>
+                    <p id="ans_13" class="hidden text-lg md:text-xl text-emerald-950 font-bold bg-emerald-100 p-4 rounded-xl border-2 border-emerald-300">
+                        За таблицею питома теплота згоряння сухих дров становить $q = 10\ \frac{\text{МДж}}{\text{кг}} = 10 \cdot 10^6\ \frac{\text{Дж}}{\text{кг}}$. Це означає, що під час повного згоряння $1\ \text{кг}$ сухих дров виділяється $10\ \text{МДж}$ ($10\,000\,000\ \text{Дж}$) теплоти.
+                    </p>
+                </div>
+
+                <!-- Завдання 14: Точний графік залежності Q від m для 8 видів палива -->
+                <div class="bg-slate-50 p-5 rounded-2xl border-2 border-slate-200 space-y-4">
+                    <h2 class="text-xl md:text-2xl font-black text-slate-900">
+                        14. За графіками залежності кількості теплоти, що виділяється під час згоряння палива, від його маси визнач...
+                    </h2>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                        <!-- Точний SVG графік по клітинках (сітка 8x10, 1 клітинка X = 0.5 кг, 1 клітинка Y = 5 МДж) -->
+                        <div class="lg:col-span-6 bg-white border-2 border-slate-300 rounded-2xl p-4 flex justify-center">
+                            <svg viewBox="0 0 430 370" class="w-full max-w-[410px] h-auto">
+                                <defs>
+                                    <!-- Сітка 36px x 28px (8 стовпців x 10 рядків) -->
+                                    <pattern id="grid-14" width="36" height="28" patternUnits="userSpaceOnUse" x="72" y="32">
+                                        <path d="M 36 0 L 0 0 0 28" fill="none" stroke="#cbd5e1" stroke-width="1.2"/>
+                                    </pattern>
+                                    <marker id="ax14" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                                        <path d="M 0 1 L 10 5 L 0 9 z" fill="#0f172a"/>
+                                    </marker>
+                                </defs>
+
+                                <!-- Фон сітки: x=72..360 (288px = 8*36), y=32..312 (280px = 10*28) -->
+                                <rect x="72" y="32" width="288" height="280" fill="url(#grid-14)" stroke="#94a3b8" stroke-width="1.2"/>
+
+                                <!-- Вісь Q, МДж -->
+                                <line x1="72" y1="312" x2="72" y2="12" stroke="#0f172a" stroke-width="2" marker-end="url(#ax14)"/>
+                                <text x="6" y="22" font-family="serif" font-size="16" font-weight="bold"><tspan font-style="italic">Q</tspan>, МДж</text>
+
+                                <!-- Вісь m, кг -->
+                                <line x1="72" y1="312" x2="415" y2="312" stroke="#0f172a" stroke-width="2" marker-end="url(#ax14)"/>
+                                <text x="382" y="336" font-family="serif" font-size="16" font-weight="bold"><tspan font-style="italic">m</tspan>, кг</text>
+                                <text x="56" y="332" font-family="serif" font-size="17" font-weight="bold">0</text>
+
+                                <!-- Поділки на осі Q (10, 20, 30, 40, 50) -->
+                                <g font-family="serif" font-size="16" font-weight="bold" text-anchor="end">
+                                    <line x1="68" y1="256" x2="76" y2="256" stroke="#0f172a" stroke-width="1.8"/><text x="62" y="261">10</text>
+                                    <line x1="68" y1="200" x2="76" y2="200" stroke="#0f172a" stroke-width="1.8"/><text x="62" y="205">20</text>
+                                    <line x1="68" y1="144" x2="76" y2="144" stroke="#0f172a" stroke-width="1.8"/><text x="62" y="149">30</text>
+                                    <line x1="68" y1="88" x2="76" y2="88" stroke="#0f172a" stroke-width="1.8"/><text x="62" y="93">40</text>
+                                    <line x1="68" y1="32" x2="76" y2="32" stroke="#0f172a" stroke-width="1.8"/><text x="62" y="37">50</text>
+                                </g>
+
+                                <!-- Поділки на осі m (1, 2, 3, 4; кожна одиниця = 72px = 2 клітинки) -->
+                                <g font-family="serif" font-size="16" font-weight="bold" text-anchor="middle">
+                                    <line x1="144" y1="308" x2="144" y2="316" stroke="#0f172a" stroke-width="1.8"/><text x="144" y="334">1</text>
+                                    <line x1="216" y1="308" x2="216" y2="316" stroke="#0f172a" stroke-width="1.8"/><text x="216" y="334">2</text>
+                                    <line x1="288" y1="308" x2="288" y2="316" stroke="#0f172a" stroke-width="1.8"/><text x="288" y="334">3</text>
+                                    <line x1="360" y1="308" x2="360" y2="316" stroke="#0f172a" stroke-width="1.8"/><text x="360" y="334">4</text>
+                                </g>
+
+                                <!-- Промені графіків 1..8 точно за клітинками оригіналу -->
+                                <!-- 1: (0,0) -> (0.75 кг, 50 МДж) => x=72+1.5*36=126, y=32 -->
+                                <line x1="72" y1="312" x2="126" y2="32" stroke="#0f172a" stroke-width="2"/>
+                                <text x="97" y="54" font-family="serif" font-size="16" font-weight="bold">1</text>
+
+                                <!-- 2: (0,0) -> (1.17 кг, 50 МДж) => x=156, y=32 (через (1 кг, 43 МДж)) -->
+                                <line x1="72" y1="312" x2="156" y2="32" stroke="#0f172a" stroke-width="2"/>
+                                <text x="135" y="54" font-family="serif" font-size="16" font-weight="bold">2</text>
+
+                                <!-- 3: (0,0) -> (1.78 кг, 50 МДж) => x=200, y=32 (через (1.5 кг, 42 МДж)) -->
+                                <line x1="72" y1="312" x2="200" y2="32" stroke="#0f172a" stroke-width="2"/>
+                                <text x="180" y="54" font-family="serif" font-size="16" font-weight="bold">3</text>
+
+                                <!-- 4: (0,0) -> (2.33 кг, 50 МДж) => x=240, y=32 (через (2 кг, 43 МДж)) -->
+                                <line x1="72" y1="312" x2="240" y2="32" stroke="#0f172a" stroke-width="2"/>
+                                <text x="217" y="54" font-family="serif" font-size="16" font-weight="bold">4</text>
+
+                                <!-- 5: (0,0) -> (3.33 кг, 50 МДж) => x=312, y=32 (через (2 кг, 30 МДж), (3 кг, 45 МДж)) -->
+                                <line x1="72" y1="312" x2="312" y2="32" stroke="#0f172a" stroke-width="2"/>
+                                <text x="287" y="54" font-family="serif" font-size="16" font-weight="bold">5</text>
+
+                                <!-- 6: (0,0) -> (4 кг, 41.5 МДж) => x=360, y=80 (через (3.5 кг, 36 МДж)) -->
+                                <line x1="72" y1="312" x2="360" y2="80" stroke="#0f172a" stroke-width="2"/>
+                                <text x="336" y="84" font-family="serif" font-size="16" font-weight="bold">6</text>
+
+                                <!-- 7: (0,0) -> (4 кг, 31 МДж) => x=360, y=138 -->
+                                <line x1="72" y1="312" x2="360" y2="138" stroke="#0f172a" stroke-width="2"/>
+                                <text x="342" y="136" font-family="serif" font-size="16" font-weight="bold">7</text>
+
+                                <!-- 8: (0,0) -> (4 кг, 20 МДж) => x=360, y=200 (через (2 кг, 10 МДж)) -->
+                                <line x1="72" y1="312" x2="360" y2="200" stroke="#dc2626" stroke-width="2.5"/>
+                                <text x="342" y="198" font-family="serif" font-size="16" font-weight="bold" fill="#dc2626">8</text>
+                            </svg>
+                        </div>
+
+                        <!-- Запитання до графіка 14 -->
+                        <div class="lg:col-span-6 space-y-4">
+                            <div class="space-y-2 text-lg md:text-xl font-bold text-slate-900">
+                                <label class="block">Яке паливо має найбільшу питому теплоту згоряння:</label>
+                                <input type="text" placeholder="Графік № ..." class="w-full px-3.5 py-2 rounded-xl border-2 border-slate-300 bg-white focus:outline-none focus:border-blue-500">
+                            </div>
+
+                            <div class="space-y-2 text-lg md:text-xl font-bold text-slate-900">
+                                <label class="block">Яке паливо має найменшу питому теплоту згоряння:</label>
+                                <input type="text" placeholder="Графік № ..." class="w-full px-3.5 py-2 rounded-xl border-2 border-slate-300 bg-white focus:outline-none focus:border-blue-500">
+                            </div>
+
+                            <div class="space-y-2 text-lg md:text-xl font-bold text-slate-900">
+                                <label class="block">➤ Укажи, яку масу твердого ракетного палива (графік 8) потрібно спалити, щоб виділилося $30\ \text{МДж}$ енергії.</label>
+                                <input type="text" placeholder="m = ... кг" class="w-full px-3.5 py-2 rounded-xl border-2 border-slate-300 bg-white font-mono focus:outline-none focus:border-blue-500">
+                            </div>
+
+                            <button onclick="toggleHint('ans_14')" class="text-base bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-xl font-bold transition shadow-sm">
+                                <i class="fa-solid fa-check-circle mr-1.5"></i> Перевірити відповіді за графіком
+                            </button>
+
+                            <div id="ans_14" class="hidden text-lg md:text-xl text-emerald-950 font-bold bg-emerald-50 p-4 rounded-2xl border-2 border-emerald-300 space-y-1.5">
+                                <p>• <strong>Найбільшу питому теплоту згоряння</strong> має паливо <strong>1</strong> (графік 1 піднімається найкрутіше: при масі $0{,}5\ \text{кг}$ виділяється понад $33\ \text{МДж}$, тобто $q_1 \approx 67\ \frac{\text{МДж}}{\text{кг}}$ — водень або природний газ).</p>
+                                <p>• <strong>Найменшу питому теплоту згоряння</strong> має паливо <strong>8</strong> (графік 8 найпологіший: $q_8 = \frac{20\ \text{МДж}}{4\ \text{кг}} = 5\ \frac{\text{МДж}}{\text{кг}}$).</p>
+                                <p>• <strong>Маса твердого ракетного палива (графік 8) для $30\ \text{МДж}$:</strong> оскільки $q_8 = 5\ \frac{\text{МДж}}{\text{кг}}$, то $m = \frac{Q}{q_8} = \frac{30\ \text{МДж}}{5\ \text{МДж/кг}} = \mathbf{6\ \text{кг}}$.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- СЛАЙД 5: Завдання 15* (Задачі 15.1 та 15.2) -->
+        <section id="slide-4" class="slide-page hidden h-full flex flex-col justify-between">
+            <div class="physics-card rounded-3xl p-5 md:p-8 flex-1 flex flex-col border-slate-300 overflow-y-auto space-y-6">
+                
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-slate-200 pb-3">
+                    <h2 class="text-xl md:text-2xl font-black text-slate-900">15.* Розв’яжи задачі.</h2>
+                    <div class="text-sm md:text-base font-bold bg-slate-100 px-3 py-1.5 rounded-xl border border-slate-300 text-slate-700">
+                        Табличні дані: $c_{\text{в}} = 4200$, $c_{\text{ц}} = 400\ \frac{\text{Дж}}{\text{кг}\cdot^\circ\text{C}}$; $q_{\text{вуг}} = 27\ \frac{\text{МДж}}{\text{кг}}$; $g = 10\ \frac{\text{Н}}{\text{кг}}$
+                    </div>
+                </div>
+
+                <!-- Задача 15.1 -->
+                <div class="bg-white p-5 rounded-2xl border-2 border-blue-200 shadow-sm space-y-4">
+                    <p class="text-lg md:text-2xl font-bold text-slate-900 leading-snug">
+                        <span class="font-black text-blue-800">15.1.</span> Яку масу кам’яного вугілля слід спалити, щоб на плиті з ККД $50\ \%$ нагріти від $0\ ^\circ\text{C}$ до кипіння $8\ \text{кг}$ води в цинковому відрі масою $1\ \text{кг}$?
+                    </p>
+                    <button onclick="toggleHint('sol_15_1')" class="text-base bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-xl font-bold transition shadow-sm">
+                        <i class="fa-solid fa-calculator mr-1.5"></i> Показати розв’язання
+                    </button>
+                    <div id="sol_15_1" class="hidden text-lg md:text-xl text-slate-900 font-bold bg-emerald-50 p-5 rounded-2xl border-2 border-emerald-300 grid grid-cols-1 md:grid-cols-12 gap-4">
+                        <div class="md:col-span-5 border-b md:border-b-0 md:border-r-2 border-emerald-300 pb-3 md:pb-0 md:pr-4">
+                            <p class="font-black text-emerald-900 mb-2">Дано:</p>
+                            <p>$\eta = 50\ \% = 0{,}5$</p>
+                            <p>$t_1 = 0\ ^\circ\text{C}$</p>
+                            <p>$t_2 = 100\ ^\circ\text{C}$</p>
+                            <p>$m_{\text{в}} = 8\ \text{кг}$</p>
+                            <p>$m_{\text{ц}} = 1\ \text{кг}$</p>
+                            <p>$c_{\text{в}} = 4200\ \text{Дж/(кг}\cdot^\circ\text{C)}$</p>
+                            <p>$c_{\text{ц}} = 400\ \text{Дж/(кг}\cdot^\circ\text{C)}$</p>
+                            <p>$q_{\text{вуг}} = 2{,}7 \cdot 10^7\ \text{Дж/кг}$</p>
+                            <hr class="border-emerald-300 my-2">
+                            <p>$m_{\text{вуг}} - ?$</p>
+                        </div>
+                        <div class="md:col-span-7 space-y-1.5">
+                            <p class="font-black text-emerald-900 mb-2">Розв’язання:</p>
+                            <p>1) Корисна теплота пішла на нагрівання води та цинкового відра від $0$ до $100\ ^\circ\text{C}$:</p>
+                            <p>$Q_{\text{кор}} = (c_{\text{в}} m_{\text{в}} + c_{\text{ц}} m_{\text{ц}})(t_2 - t_1)$</p>
+                            <p>$Q_{\text{кор}} = (4200 \cdot 8 + 400 \cdot 1) \cdot 100 = (33\,600 + 400) \cdot 100 = 3\,400\,000\ \text{Дж} = 3{,}4\ \text{МДж}$</p>
+                            <p>2) Повна теплота, що виділиться при згорянні вугілля: $Q_{\text{повна}} = q_{\text{вуг}} m_{\text{вуг}}$.</p>
+                            <p>3) За формулою ККД: $\eta = \frac{Q_{\text{кор}}}{q_{\text{вуг}} m_{\text{вуг}}} \Rightarrow m_{\text{вуг}} = \frac{Q_{\text{кор}}}{\eta \cdot q_{\text{вуг}}}$.</p>
+                            <p>4) $m_{\text{вуг}} = \frac{3{,}4 \cdot 10^6}{0{,}5 \cdot 2{,}7 \cdot 10^7} = \frac{3{,}4}{13{,}5} \approx 0{,}252\ \text{кг} \approx 252\ \text{г}$.</p>
+                            <p class="mt-2 text-emerald-950 font-black">Відповідь: $m_{\text{вуг}} \approx 0{,}25\ \text{кг}$ ($252\ \text{г}$).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Задача 15.2 -->
+                <div class="bg-white p-5 rounded-2xl border-2 border-amber-300 shadow-sm space-y-4">
+                    <p class="text-lg md:text-2xl font-bold text-slate-900 leading-snug">
+                        <span class="font-black text-amber-800">15.2.</span> На яку висоту можна підняти вантаж масою $50\ \text{т}$, використавши всю енергію, що виділяється під час повного згоряння $10\ \text{кг}$ антрациту? Питома теплота згоряння антрациту дорівнює $30\ \frac{\text{МДж}}{\text{кг}}$.
+                    </p>
+                    <button onclick="toggleHint('sol_15_2')" class="text-base bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-xl font-bold transition shadow-sm">
+                        <i class="fa-solid fa-calculator mr-1.5"></i> Показати розв’язання
+                    </button>
+                    <div id="sol_15_2" class="hidden text-lg md:text-xl text-slate-900 font-bold bg-emerald-50 p-5 rounded-2xl border-2 border-emerald-300 grid grid-cols-1 md:grid-cols-12 gap-4">
+                        <div class="md:col-span-5 border-b md:border-b-0 md:border-r-2 border-emerald-300 pb-3 md:pb-0 md:pr-4">
+                            <p class="font-black text-emerald-900 mb-2">Дано:</p>
+                            <p>$m_1 = 50\ \text{т} = 50\,000\ \text{кг}$</p>
+                            <p>$m_2 = 10\ \text{кг}$</p>
+                            <p>$q = 30\ \frac{\text{МДж}}{\text{кг}} = 3 \cdot 10^7\ \frac{\text{Дж}}{\text{кг}}$</p>
+                            <p>$g = 10\ \frac{\text{Н}}{\text{кг}}$</p>
+                            <hr class="border-emerald-300 my-2">
+                            <p>$h - ?$</p>
+                        </div>
+                        <div class="md:col-span-7 space-y-1.5">
+                            <p class="font-black text-emerald-900 mb-2">Розв’язання:</p>
+                            <p>За законом збереження енергії потенціальна енергія піднятого вантажу дорівнює теплоті згоряння антрациту:</p>
+                            <p class="my-1">$E_p = Q \Rightarrow m_1 g h = q m_2$</p>
+                            <p class="my-1">$h = \frac{q m_2}{m_1 g}$</p>
+                            <p>Підставимо значення:</p>
+                            <p>$h = \frac{3 \cdot 10^7 \cdot 10}{50\,000 \cdot 10} = \frac{3 \cdot 10^8}{5 \cdot 10^5} = 600\ \text{м}$.</p>
+                            <p class="mt-2 text-emerald-950 font-black">Відповідь: $h = 600\ \text{м}$ (або $612\ \text{м}$ при $g = 9{,}8\ \frac{\text{Н}}{\text{кг}}$).</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Нижня панель навігації -->
+    <footer class="bg-white border-2 border-slate-300 rounded-2xl px-4 py-2.5 flex items-center justify-between shrink-0 mt-2 shadow-sm">
+        <button onclick="prevSlide()" id="btn-prev" class="btn-nav bg-slate-100 hover:bg-slate-200 text-slate-900 font-black px-5 py-2 rounded-xl border-2 border-slate-300 flex items-center gap-2 text-base md:text-lg">
+            <i class="fa-solid fa-chevron-left"></i> Назад
+        </button>
+
+        <!-- Індикатори сторінок для швидкого переходу -->
+        <div class="flex items-center gap-1.5 sm:gap-2 overflow-x-auto">
+            <button onclick="goToSlide(0)" class="step-dot px-3 py-1.5 rounded-lg font-bold text-sm md:text-base transition" data-step="0">1–5</button>
+            <button onclick="goToSlide(1)" class="step-dot px-3 py-1.5 rounded-lg font-bold text-sm md:text-base transition" data-step="1">6–8</button>
+            <button onclick="goToSlide(2)" class="step-dot px-3 py-1.5 rounded-lg font-bold text-sm md:text-base transition" data-step="2">9–12</button>
+            <button onclick="goToSlide(3)" class="step-dot px-3 py-1.5 rounded-lg font-bold text-sm md:text-base transition" data-step="3">13–14 (Графік)</button>
+            <button onclick="goToSlide(4)" class="step-dot px-3 py-1.5 rounded-lg font-bold text-sm md:text-base transition" data-step="4">15.1–15.2*</button>
+        </div>
+
+        <button onclick="nextSlide()" id="btn-next" class="btn-nav bg-blue-600 hover:bg-blue-700 text-white font-black px-5 py-2 rounded-xl shadow-md flex items-center gap-2 text-base md:text-lg">
+            Далі <i class="fa-solid fa-chevron-right"></i>
+        </button>
+    </footer>
+
+    <script>
+        let currentSlide = 0;
+        const totalSlides = 5;
+        const taskNumbers = ["1–5", "6–8", "9–12", "13–14", "15.1–15.2*"];
+
+        const naturalList = [];
+        const artificialList = [];
+
+        function classifyFuel(btn, type) {
+            const label = btn.innerText.trim();
+            if (btn.disabled) return;
+
+            btn.disabled = true;
+            btn.classList.add('opacity-40', 'line-through', 'cursor-not-allowed');
+
+            if (type === 'natural') {
+                naturalList.push(label);
+                document.getElementById('cell-natural').innerText = naturalList.join(', ') + '.';
+            } else {
+                artificialList.push(label);
+                document.getElementById('cell-artificial').innerText = artificialList.join(', ') + '.';
+            }
+        }
+
+        function autoFillFuelTable() {
+            document.querySelectorAll('.fuel-chip').forEach(btn => {
+                if (!btn.disabled) btn.click();
+            });
+        }
+
+        function resetFuelTable() {
+            naturalList.length = 0;
+            artificialList.length = 0;
+            document.getElementById('cell-natural').innerHTML = '<span class="text-slate-400 italic font-normal text-base">Натисни на назви природного палива вище...</span>';
+            document.getElementById('cell-artificial').innerHTML = '<span class="text-slate-400 italic font-normal text-base">Натисни на назви штучного палива вище...</span>';
+            document.querySelectorAll('.fuel-chip').forEach(btn => {
+                btn.disabled = false;
+                btn.classList.remove('opacity-40', 'line-through', 'cursor-not-allowed');
+            });
+        }
+
+        function goToSlide(index) {
+            if (index < 0 || index >= totalSlides) return;
+            
+            document.querySelectorAll('.slide-page').forEach(el => {
+                el.classList.add('hidden');
+            });
+            const activeSlide = document.getElementById(`slide-${index}`);
+            activeSlide.classList.remove('hidden');
+            
+            const scrollContainer = activeSlide.querySelector('.overflow-y-auto');
+            if (scrollContainer) scrollContainer.scrollTop = 0;
+
+            currentSlide = index;
+            document.getElementById('current-task-num').innerText = taskNumbers[currentSlide];
+
+            document.querySelectorAll('.step-dot').forEach((btn, idx) => {
+                if (idx === currentSlide) {
+                    btn.className = 'step-dot px-3 py-1.5 rounded-lg font-black text-sm md:text-base bg-blue-600 text-white shadow-sm transition';
+                } else {
+                    btn.className = 'step-dot px-3 py-1.5 rounded-lg font-bold text-sm md:text-base bg-slate-100 text-slate-700 hover:bg-slate-200 transition';
+                }
+            });
+
+            const btnPrev = document.getElementById('btn-prev');
+            btnPrev.disabled = (currentSlide === 0);
+            btnPrev.style.opacity = (currentSlide === 0) ? "0.4" : "1";
+            
+            const btnNext = document.getElementById('btn-next');
+            if (currentSlide === totalSlides - 1) {
+                btnNext.innerHTML = 'На початок <i class="fa-solid fa-rotate-left ml-1"></i>';
+                btnNext.className = 'btn-nav bg-emerald-600 hover:bg-emerald-700 text-white font-black px-5 py-2 rounded-xl shadow-md flex items-center gap-2 text-base md:text-lg';
+            } else {
+                btnNext.innerHTML = 'Далі <i class="fa-solid fa-chevron-right"></i>';
+                btnNext.className = 'btn-nav bg-blue-600 hover:bg-blue-700 text-white font-black px-5 py-2 rounded-xl shadow-md flex items-center gap-2 text-base md:text-lg';
+            }
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                goToSlide(currentSlide + 1);
+            } else {
+                goToSlide(0);
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                goToSlide(currentSlide - 1);
+            }
+        }
+
+        function toggleHint(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.classList.toggle('hidden');
+            }
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+            if (e.key === 'ArrowRight') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            }
+        });
+
+        window.onload = function() {
+            goToSlide(0);
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: '$$', right: '$$', display: true},
+                    {left: '$', right: '$', display: false}
+                ],
+                throwOnError: false
+            });
+        }
+    </script>
+</body>
+</html>
